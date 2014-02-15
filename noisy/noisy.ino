@@ -1,3 +1,15 @@
+//            _         
+//   _ _  ___(_)____  _ 
+//  | ' \/ _ \ (_-< || |
+//  |_||_\___/_/__/\_, |
+//                 |__/ 
+// by stephan.com 2014
+//
+// a blinkytape program that selects a new color on every button push
+// and fades to the new color by random diffusion
+//
+// TODO debounce button
+
 #include <FastSPI_LED2.h>
 
 #define LED_COUNT 60 // BlinkyTape has 60 LEDs!
