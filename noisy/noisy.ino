@@ -66,39 +66,6 @@ void do_fade() {
   LEDS.show();
 }
 
-void flash() {
-  for(int i = 0; i < 20; i++){
-     LEDS.showColor(i % 2 == 0 ? 0xFF0000 : 0xFFFFFF);
-     delay(100);
-  }
-  LEDS.showColor(0x000000);
-}
-
-void do_countdown(){
-   CRGB color;
-    if(count > 40){
-      color = 0x00FF00;
-    }else if(count > 20){
-      color = 0xFFFF00;
-    }else{
-      color = 0xFF0000;
-    } 
-    
-    for(int i = 0; i < count; i++){
-       leds[i] = color; i++;
-    }
-    for(int i = count; i < LED_COUNT; i++){
-      leds[i] = 0x000000;
-    }  
-
-    for(int i = 0; i < LED_COUNT; i++){
-      leds[i] = random_color();
-    }  
-
-      
-    LEDS.show(); // set the color for the strip all at once.
-}
-
 void loop() {
   if (Serial.available()){
      while(Serial.read() != -1){};
