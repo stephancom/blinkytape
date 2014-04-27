@@ -11,6 +11,7 @@
 // TODO debounce button
 
 #include <FastSPI_LED2.h>
+#include <Bounce2.h>
 
 #define LED_COUNT 60 // BlinkyTape has 60 LEDs!
 struct CRGB leds[LED_COUNT]; // this struct contains 60 CRGB values.  This is where 
@@ -32,15 +33,18 @@ struct CRGB leds[LED_COUNT]; // this struct contains 60 CRGB values.  This is wh
 
 #endif
 
-#define PAUSE_TIME 50
-#define FADE_STEPS 40
+#define PAUSE_TIME 20
+#define FADE_STEPS 64
 
 int count = 0;
 CRGB old_color;
 CRGB new_color;
+Bounce clicker = Bounce();
 
 CRGB random_color() {
-  return random() & 0xffffff;
+  CRGB color; // = random() & 0xffffff;
+  color.setHue(random()%360);
+  return color;
 }
 
 
@@ -52,6 +56,10 @@ void setup()
   LEDS.setBrightness(10);
   LEDS.showColor(old_color = random_color());
     new_color = random_color();
+    
+   clicker.interval(500);
+   clicker.attach(BUTTON_IN);
+   randomSeed(analogRead(0));
 }
 
 void do_fade() {
@@ -66,12 +74,20 @@ void do_fade() {
   LEDS.show();
 }
 
+#define AUTOREPEAT
+
 void loop() {
-  if (Serial.available()){
-     while(Serial.read() != -1){};
-     count = FADE_STEPS;
-  }
-  else if(digitalRead(BUTTON_IN) == 1 && count == 0){
+
+boolean do_start;
+
+#ifdef AUTOREPEAT
+  do_start = !count;
+  if(do_start) { delay(1000); }
+#else
+  do_start = clicker.update() && !count;
+#endif
+
+  if(do_start){
      count = FADE_STEPS; 
   } else if(count){
     do_fade();
@@ -79,7 +95,7 @@ void loop() {
     if(!count){
       old_color = new_color;
       LEDS.showColor(old_color);
-    new_color = random_color();
+      new_color = random_color();
     }
   }
   
