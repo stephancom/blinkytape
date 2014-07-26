@@ -44,7 +44,7 @@ CRGB random_color() {
 // take a look at the FastLED example called Fast2Dev for more usage info
 void setup()
 {  
-  LEDS.addLeds<WS2811, LED_OUT, GRB>(leds, LED_COUNT); // this configures the BlinkyBoard - leave as is.
+  LEDS.addLeds<WS2812B, LED_OUT, GRB>(leds, LED_COUNT); // this configures the BlinkyBoard - leave as is.
   LEDS.setBrightness(10);
   LEDS.showColor(old_color = random_color());
     new_color = random_color();
