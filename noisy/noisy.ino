@@ -16,22 +16,11 @@
 #define LED_COUNT 60 // BlinkyTape has 60 LEDs!
 struct CRGB leds[LED_COUNT]; // this struct contains 60 CRGB values.  This is where 
 
-#ifdef REVB // RevB boards have a slightly different pinout.
-
-#define LED_OUT      5
-#define BUTTON_IN    13
-#define ANALOG_INPUT A11
-#define IO_A         15
-
-#else
-
 #define LED_OUT      13
 #define BUTTON_IN    10
 #define ANALOG_INPUT A9
 #define IO_A         7
 #define IO_B         11
-
-#endif
 
 #define PAUSE_TIME 20
 #define FADE_STEPS 64
