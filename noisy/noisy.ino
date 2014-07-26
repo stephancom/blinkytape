@@ -22,6 +22,9 @@ struct CRGB leds[LED_COUNT]; // this struct contains 60 CRGB values.  This is wh
 #define IO_A         7
 #define IO_B         11
 
+// uncomment this line to automatically change color
+#define AUTOREPEAT
+
 #define PAUSE_TIME 20
 #define FADE_STEPS 64
 
@@ -62,8 +65,6 @@ void do_fade() {
   
   LEDS.show();
 }
-
-#define AUTOREPEAT
 
 void loop() {
 
